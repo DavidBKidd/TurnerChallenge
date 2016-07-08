@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <h1>Turner Challenge Application</h1>
+</div>
+
+<div ng-controller="homeController" class="container">
+    <div class="col-md-4">
+        <div class="bar">
+            <!-- Create a binding between the searchString model and the text field -->
+            <input type="text" ng-model="searchString" placeholder="Enter your search terms" />
+        </div>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <strong>Title</strong>
+            </tr>
+
+            <tr ng-repeat="title in Titles | filter:searchString" ng-controller="detailController" ng-click="ShowDetails()">
+                <td class="btn-default">
+                    <div>{{ title.Title }}</div>
+                </td>
+            </tr>
+        </table>
+        <p><a href=""></a></p>
+    </div>
+    <div class="col-md-8">
+        <div ng-show="Details">
+            <h3>Details</h3>
+            <p><strong>Title</strong> {{Details.TitleName}}</p>
+            <p><strong>Released</strong> {{Details.ReleaseYear}}</p>
+            <strong>Awards</strong>
+            <div id="details" ng-repeat="award in Details.Awards" class="container">
+                <div ng-repeat="(key, value) in award">
+                    {{key}} : {{value}}
+                </div>
+            </div>
+            <strong>Genres</strong>
+            <div id="details" ng-repeat="genre in Details.Genres" class="container">
+                <span>{{genre}} </span>
+            </div>
+            <strong>Other Names</strong>
+            <div>
+                <table style="min-width:300px" class="table-bordered">
+                    <thead>
+                        <tr><th>Type</th><th>Language</th><th>Title</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="name in Details.OtherNames"><td>{{name.TitleNameType}}</td><td>{{name.TitleNameLanguage}}</td><td>{{name.TitleName}}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <strong>Storylines</strong>
+            <div ng-repeat="storyline in Details.Storylines" class="container">
+                <span>{{storyline.Description}} </span>
+            </div>
+            <strong>Participants</strong>
+            <div>
+                <table class="container table-bordered table-striped">
+                    <thead>
+                        <tr><th>Name</th><th>Type</th><th>Role Type</th><th>Key</th><th>On Screen</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="participant in Details.Participants"><td style="padding:3px">{{participant.Name}}</td><td>{{participant.ParticipantType}}</td><td>{{participant.RoleType}}</td><td>{{participant.IsKey}}</td><td>{{participant.IsOnScreen}}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
